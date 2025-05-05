@@ -1,0 +1,42 @@
+<link rel="stylesheet" href="detailing.css">
+<section class="hero">
+  <div class="hero-box">
+    <h2>Інформація про спортивне обладнання</h2>
+    <p>Тут відображено детальну інформацію про додане обладнання:</p>
+    <table id="equipmentTable">
+      <thead>
+        <tr>
+          <th>Назва обладнання</th>
+          <th>Класифікація</th>
+          <th>Відповідальний тренер</th>
+          <th>Дата реєстрації</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<script>
+  const data = JSON.parse(localStorage.getItem('equipmentData')) || [];
+  const tableBody = document.querySelector("#equipmentTable tbody");
+
+  if (data.length > 0) {
+    data.forEach(entry => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${entry["equipment-name"]}</td>
+        <td>${entry["category"]}</td>
+        <td>${entry["responsible"]}</td>
+        <td>${entry["reg-date"]}</td>
+      `;
+      tableBody.appendChild(row);
+    });
+  } else {
+    const noDataMsg = document.createElement("p");
+    noDataMsg.textContent = "Немає даних для відображення.";
+    document.querySelector(".hero-box").appendChild(noDataMsg);
+  }
+</script>
+

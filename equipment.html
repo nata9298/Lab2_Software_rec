@@ -1,0 +1,94 @@
+<link rel="stylesheet" href="equipment.css">
+<section class="hero">
+  <div class="hero-box">
+    <h2>Додайте нове спортивне обладнання</h2>
+    <p>Будь ласка, заповніть усі обов'язкові поля:</p>
+
+    <form id="equipmentForm" novalidate>
+      <input type="text" id="equipment-name" name="equipment-name" placeholder="Назва обладнання" required>
+
+      <select id="category" name="category" required>
+        <option value="">-- Класифікація --</option>
+        <option value="Фітнес">Фітнес</option>
+        <option value="Кардіо">Кардіо</option>
+        <option value="Силове">Силове</option>
+      </select>
+
+      <select id="responsible" name="responsible" required>
+        <option value="">-- Відповідальний тренер --</option>
+        <option value="Олена Кучерук">Олена Кучерук</option>
+        <option value="Андрій Стеценко">Андрій Стеценко</option>
+        <option value="Ірина Шевченко">Ірина Шевченко</option>
+        <option value="Максим Назарович">Максим Назарович</option>
+        <option value="Софія Овсяник">Софія Овсяник</option>
+      </select>
+
+      <input type="date" id="reg-date" name="reg-date" required>
+
+      <input type="number" id="quantity" name="quantity" placeholder="Кількість" min="1" required>
+
+      <select id="location" name="location" required>
+        <option value="">-- Адреса залу --</option>
+        <option value="City №1 (вул.Андріївська, 21)">City №1 (вул.Андріївська, 21)</option>
+        <option value="City №2 (вул. Червона, 3)">City №2 (вул. Червона, 3)</option>
+        <option value="City №3 (вул. Калинівська, 45)">City №3 (вул. Калинівська, 45)</option>
+      </select> 
+
+      <button type="submit">Додати обладнання</button>
+      <div id="form-message"></div>
+    </form>
+  </div>
+</section>
+
+<script>
+  document.getElementById("equipmentForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const form = e.target;
+    const fields = ["equipment-name", "category", "responsible", "reg-date", "quantity", "location"];
+    let valid = true;
+
+    const message = document.getElementById("form-message");
+    message.textContent = "";
+
+    fields.forEach(id => {
+      const field = document.getElementById(id);
+      field.classList.remove("invalid");
+
+      if (!field.value.trim()) {
+        field.classList.add("invalid");
+        valid = false;
+      }
+    });
+
+    if (valid) {
+      const newEntry = {
+        "equipment-name": document.getElementById("equipment-name").value.trim(),
+        "category": document.getElementById("category").value,
+        "responsible": document.getElementById("responsible").value,
+        "reg-date": document.getElementById("reg-date").value,
+        "quantity": document.getElementById("quantity").value,
+        "location": document.getElementById("location").value.trim()
+      };
+
+      const existingData = JSON.parse(localStorage.getItem('equipmentData')) || [];
+      existingData.push(newEntry);
+      localStorage.setItem('equipmentData', JSON.stringify(existingData));
+
+      message.textContent = "✅ Обладнання додано успішно!";
+      message.style.color = "green";
+      form.reset();
+
+      setTimeout(() => {
+        window.location.href = "detailing.html";
+      }, 1500);
+    } else {
+      message.textContent = "❌ Заповніть усі обов'язкові поля.";
+      message.style.color = "red";
+    }
+  });
+
+  window.onload = () => {
+    document.getElementById("equipment-name").focus();
+  };
+</script>
+

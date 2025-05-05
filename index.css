@@ -1,0 +1,95 @@
+/* Основні стилі */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Фонове зображення */
+.hero {
+    background-image: url('picture/sport.webp');
+    background-size: cover;
+    background-position: center;
+    
+    height: 100vh;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Затемнення фону */
+.hero::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 0;
+}
+
+/* Блок з категоріями */
+.hero-box {
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    z-index: 1;
+    max-width: 500px;
+    width: 90%;
+}
+
+/* Заголовок і текст */
+.hero-box h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: #222;
+}
+
+.hero-box p {
+    margin-bottom: 20px;
+    color: #555;
+}
+
+/* Список категорій */
+.category-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.category-list li {
+    margin: 10px 0;
+}
+
+.category-list a {
+    display: inline-block;
+    padding: 12px 24px;
+    background: linear-gradient(135deg, #5c17a5, #a57ad3);
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+}
+
+.category-list a:hover {
+    background: linear-gradient(135deg, #e26dff, #d452ff, #c13cff);
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+@media screen and (max-width: 600px) {
+    .hero-box {
+      padding: 30px 20px;
+    }
+  
+    .category-list a {
+      padding: 10px 18px;
+      font-size: 0.9rem;
+    }
+  }
